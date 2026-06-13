@@ -778,15 +778,64 @@
 </main>
 
 <footer>
-  <div>Local processing — no server, no upload</div>
   <div class="copyright">© 2026 Made by Rusiru Wimukthi Wilson. All rights reserved.</div>
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://unpkg.com/@capacitor/core@6/dist/capacitor.js"></script>
+<script src="https://unpkg.com/@capacitor/filesystem@6/dist/plugin.js"></script>
+<script src="https://unpkg.com/@capacitor/share@6/dist/plugin.js"></script>
 <script>
   pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+  /* ============ APP SAVE HELPER ============ */
+  // Detects if running inside the Capacitor Android app and saves the
+  // file to device storage + opens the share/save sheet. Falls back to
+  // a normal browser download when running on the website.
+  async function saveOrDownloadBlob(blob, fileName, mimeType){
+    const isApp = window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform();
+
+    if(isApp){
+      try{
+        const base64 = await new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(reader.result.split(',')[1]);
+          reader.onerror = reject;
+          reader.readAsDataURL(blob);
+        });
+
+        const writeResult = await window.Capacitor.Plugins.Filesystem.writeFile({
+          path: fileName,
+          data: base64,
+          directory: 'DOCUMENTS',
+          recursive: true
+        });
+
+        const { Share } = window.Capacitor.Plugins;
+        if(Share && Share.share){
+          await Share.share({
+            title: fileName,
+            text: 'Here is your converted file',
+            url: writeResult.uri,
+            dialogTitle: 'Save or share file'
+          });
+        }
+        return { saved: true, uri: writeResult.uri };
+      } catch(err){
+        console.error('Native save failed, falling back to download', err);
+      }
+    }
+
+    // Browser fallback (normal download)
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = fileName;
+    a.click();
+    URL.revokeObjectURL(a.href);
+    return { saved: true, fallback: true };
+  }
 
   /* ============ TAB SWITCHING ============ */
   const tabImgToPdf = document.getElementById('tabImgToPdf');
@@ -980,7 +1029,8 @@
       pdf.addImage(dataUrl, format, x, y, w, h, undefined, 'NONE');
     }
 
-    pdf.save('converted.pdf');
+    const pdfBlob = pdf.output('blob');
+    await saveOrDownloadBlob(pdfBlob, 'converted.pdf', 'application/pdf');
     statusEl.textContent = `Exported ${images.length} frame${images.length > 1 ? 's' : ''} to converted.pdf`;
     convertBtn.disabled = false;
   });
@@ -1136,11 +1186,7 @@
     pdfStatusEl.textContent = 'Packing ZIP…';
     const zipBlob = await zip.generateAsync({ type: 'blob' });
 
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(zipBlob);
-    a.download = `${pdfFileName}_images.zip`;
-    a.click();
-    URL.revokeObjectURL(a.href);
+    await saveOrDownloadBlob(zipBlob, `${pdfFileName}_images.zip`, 'application/zip');
 
     pdfStatusEl.textContent = `Exported ${loadedPdf.numPages} page${loadedPdf.numPages > 1 ? 's' : ''} as ${format.toUpperCase()} (ZIP)`;
     convertPdfBtn.disabled = false;
