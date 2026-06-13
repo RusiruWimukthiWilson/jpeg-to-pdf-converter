@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>25.2 PDF Lovers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&family=Syne:wght@800&family=Caveat:wght@700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* NSBM Green University Inspired Premium Palette */
+    --nsbm-dark: #07140e;
+    --nsbm-green: #006643;
+    --nsbm-emerald: #0fa968;
+    --nsbm-gold: #f1b82d;
+    --nsbm-gold-hover: #ffcc44;
+    --paper: #f4f9f6;
+    --line: rgba(255, 255, 255, 0.08);
+    --muted: #a2b5ac;
+    --glass: rgba(7, 20, 14, 0.82);
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  body{
+    color: var(--paper);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 60px 20px 80px;
+    -webkit-font-smoothing: antialiased;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* --- NSBM GREEN UNIVERSITY VIBE ANIMATED BACKGROUND --- */
+  .bg-animation-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    overflow: hidden;
+    background-color: var(--nsbm-dark);
+  }
+
+  .bg-animation-container::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    /* Rich deep emerald gradient overlay to secure crisp content readability */
+    background: linear-gradient(135deg, rgba(7, 20, 14, 0.82) 0%, rgba(4, 10, 7, 0.96) 100%);
+    z-index: 1;
+  }
+
+  .bg-photo {
+    position: absolute;
+    top: -5%;
+    left: -5%;
+    width: 110%;
+    height: 110%;
+    object-fit: cover;
+    filter: saturate(1.1) contrast(1.05);
+    /* Soft panoramic zoom to mimic campus morning atmosphere */
+    animation: campusPan 22s ease-in-out infinite alternate;
+  }
+
+  header{
+    text-align: center;
+    margin-bottom: 48px;
+    max-width: 640px;
+    animation: fadeIn 0.8s ease-out;
+    position: relative;
+    z-index: 2;
+  }
+
+  .eyebrow{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--nsbm-gold);
+    margin-bottom: 24px;
+    opacity: 0.95;
+    font-weight: 500;
+  }
+
+  /* Logo Section */
+  .logo{
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    user-select: none;
+    flex-wrap: wrap;
+  }
+
+  /* 25.2 - Bold, Solid, Academic Prestige Font */
+  .logo-number {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 5.5rem;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: #ffffff;
+    text-shadow: 0 8px 30px rgba(0, 0, 0, 0.5), 0 0 40px rgba(15, 169, 104, 0.2);
+  }
+
+  /* PDF Lovers - Animated Brush Fluid Text */
+  .logo span{
+    font-family: 'Caveat', cursive;
+    font-size: 4.8rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    padding: 0 5px;
+    display: inline-block;
+    background: linear-gradient(120deg, #ffe066, var(--nsbm-gold), var(--nsbm-emerald), #ffe066);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: paintFlow 4s linear infinite, textSway 2.5s ease-in-out infinite alternate;
+  }
+
+  h1{
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2.6rem, 6vw, 4.2rem);
+    font-weight: 600;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    text-shadow: 0 4px 24px rgba(0,0,0,0.6);
+  }
+
+  h1 em{
+    font-style: italic;
+    color: var(--nsbm-gold);
+    font-weight: 400;
+  }
+
+  .sub{
+    margin-top: 20px;
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.6;
+    max-width: 540px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  main{
+    width: 100%;
+    max-width: 760px;
+    animation: fadeIn 1s ease-out;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Modern Campus Architecture Glass Deck */
+  .lighttable{
+    border: 2px dashed rgba(15, 169, 104, 0.3);
+    border-radius: 16px;
+    background: var(--glass);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    padding: 60px 40px;
+    text-align: center;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 24px 50px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255,255,255,0.05);
+  }
+
+  .lighttable.drag{
+    border-color: var(--nsbm-emerald);
+    background: rgba(10, 36, 24, 0.9);
+    transform: scale(1.02);
+    box-shadow: 0 30px 60px rgba(15, 169, 104, 0.25);
+  }
+
+  .lighttable .icon{
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 24px;
+    border: 1px solid rgba(15, 169, 104, 0.2);
+    background: rgba(15, 169, 104, 0.05);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--nsbm-gold);
+    font-size: 24px;
+    transition: all 0.3s;
+  }
+
+  .lighttable:hover .icon{
+    transform: rotate(90deg);
+    background: rgba(15, 169, 104, 0.15);
+    border-color: var(--nsbm-emerald);
+    color: var(--nsbm-gold-hover);
+  }
+
+  .lighttable h2{
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 1.6rem;
+    margin-bottom: 10px;
+    letter-spacing: -0.01em;
+  }
+
+  .lighttable p{
+    color: var(--muted);
+    font-size: 14px;
+    margin-bottom: 28px;
+  }
+
+  .browse-btn{
+    display: inline-block;
+    padding: 12px 32px;
+    border: 1px solid var(--nsbm-gold);
+    color: var(--nsbm-gold);
+    border-radius: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    cursor: pointer;
+    background: transparent;
+    transition: all 0.2s ease;
+  }
+
+  .browse-btn:hover{
+    background: var(--nsbm-gold);
+    color: var(--nsbm-dark);
+    box-shadow: 0 0 24px rgba(241, 184, 45, 0.3);
+    transform: translateY(-1px);
+  }
+
+  input[type="file"]{ display:none; }
+
+  .strip{
+    margin-top: 36px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 16px;
+  }
+
+  .frame{
+    position: relative;
+    background: #0b120f;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    overflow: hidden;
+    aspect-ratio: 1;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+    transition: transform 0.2s;
+  }
+
+  .frame:hover{
+    transform: scale(1.04);
+    z-index: 3;
+  }
+
+  .frame img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: saturate(0.95) contrast(1.02);
+  }
+
+  .frame .num{
+    position: absolute;
+    top: 8px; left: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--nsbm-gold);
+    background: rgba(7, 20, 14, 0.9);
+    padding: 2px 6px;
+    border-radius: 4px;
+    backdrop-filter: blur(4px);
+  }
+
+  .frame .remove{
+    position: absolute;
+    top: 8px; right: 8px;
+    width: 22px; height: 22px;
+    background: rgba(220, 53, 69, 0.9);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, transform 0.1s;
+    opacity: 0;
+  }
+
+  .frame:hover .remove{
+    opacity: 1;
+  }
+
+  .frame .remove:hover{ 
+    background: rgba(255, 65, 84, 1);
+    transform: scale(1.1);
+  }
+
+  .controls{
+    margin-top: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+    background: var(--glass);
+    padding: 20px 32px;
+    border-radius: 12px;
+    border: 1px solid var(--line);
+  }
+
+  .count{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .count strong{ color: var(--nsbm-gold); }
+
+  .convert-btn{
+    background: linear-gradient(135deg, var(--nsbm-gold) 0%, #dca116 100%);
+    color: var(--nsbm-dark);
+    border: none;
+    padding: 16px 36px;
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 15px rgba(241, 184, 45, 0.25);
+  }
+
+  .convert-btn:hover:not(:disabled){
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(241, 184, 45, 0.45);
+    background: linear-gradient(135deg, var(--nsbm-gold-hover) 0%, var(--nsbm-gold) 100%);
+  }
+
+  .convert-btn:disabled{
+    background: rgba(255,255,255,0.04);
+    color: rgba(255,255,255,0.15);
+    box-shadow: none;
+    cursor: not-allowed;
+  }
+
+  .status{
+    margin-top: 20px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--nsbm-gold);
+    text-align: center;
+    min-height: 16px;
+  }
+
+  footer{
+    margin-top: auto;
+    padding-top: 60px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.12em;
+    text-align: center;
+    line-height: 1.8;
+    position: relative;
+    z-index: 2;
+  }
+
+  footer .copyright {
+    text-transform: none;
+    color: var(--paper);
+    opacity: 0.95;
+    margin-top: 6px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+  }
+
+  /* --- TABS --- */
+  .tabs{
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+  }
+
+  .tab{
+    background: var(--glass);
+    border: 1px solid var(--line);
+    color: var(--muted);
+    padding: 12px 28px;
+    border-radius: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    backdrop-filter: blur(10px);
+  }
+
+  .tab:hover{
+    color: var(--paper);
+    border-color: rgba(15,169,104,0.4);
+  }
+
+  .tab.active{
+    color: var(--nsbm-dark);
+    background: linear-gradient(135deg, var(--nsbm-gold) 0%, #dca116 100%);
+    border-color: transparent;
+    box-shadow: 0 4px 18px rgba(241,184,45,0.3);
+    font-weight: 700;
+  }
+
+  /* --- OPTIONS PANEL --- */
+  .options{
+    margin-top: 24px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 14px;
+    background: var(--glass);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 20px 24px;
+    backdrop-filter: blur(16px);
+  }
+
+  .opt-group{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .opt-group label{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--nsbm-gold);
+  }
+
+  .opt-group select{
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--line);
+    color: var(--paper);
+    padding: 10px 12px;
+    border-radius: 6px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    cursor: pointer;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    appearance: none;
+    background-image: linear-gradient(45deg, transparent 50%, var(--nsbm-gold) 50%), linear-gradient(135deg, var(--nsbm-gold) 50%, transparent 50%);
+    background-position: calc(100% - 18px) center, calc(100% - 13px) center;
+    background-size: 5px 5px, 5px 5px;
+    background-repeat: no-repeat;
+  }
+
+  .opt-group select:focus{
+    border-color: var(--nsbm-emerald);
+    box-shadow: 0 0 0 3px rgba(15,169,104,0.15);
+    outline: none;
+  }
+
+  .opt-group select option{
+    background: var(--nsbm-dark);
+    color: var(--paper);
+  }
+
+  /* --- PDF PAGE THUMBNAILS --- */
+  .frame.pdf-page img{ object-fit: contain; background: #fff; }
+
+  .frame .page-label{
+    position: absolute;
+    bottom: 8px; left: 8px; right: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--paper);
+    background: rgba(7,20,14,0.85);
+    padding: 3px 6px;
+    border-radius: 4px;
+    text-align: center;
+    backdrop-filter: blur(4px);
+  }
+
+  /* --- ADVANCED ENHANCEMENTS --- */
+
+  ::selection{
+    background: var(--nsbm-gold);
+    color: var(--nsbm-dark);
+  }
+
+  ::-webkit-scrollbar{ width: 10px; }
+  ::-webkit-scrollbar-track{ background: var(--nsbm-dark); }
+  ::-webkit-scrollbar-thumb{
+    background: linear-gradient(var(--nsbm-emerald), var(--nsbm-gold));
+    border-radius: 6px;
+  }
+
+  button:focus-visible, label:focus-visible{
+    box-shadow: 0 0 0 3px rgba(241, 184, 45, 0.4);
+    border-radius: 6px;
+  }
+
+  /* Subtle floating glow layer for extra depth */
+  .bg-animation-container::before{
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(241,184,45,0.06) 0, transparent 40%),
+      radial-gradient(circle at 80% 70%, rgba(15,169,104,0.10) 0, transparent 45%);
+    pointer-events: none;
+    animation: glowDrift 18s ease-in-out infinite alternate;
+  }
+
+  /* Glassy shimmer sweep on logo */
+  .logo-number{
+    position: relative;
+    display: inline-block;
+  }
+  .logo-number::after{
+    content: '25.2';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(110deg, transparent 30%, rgba(255,255,255,0.55) 50%, transparent 70%);
+    background-size: 250% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: shimmer 5s ease-in-out infinite;
+    mix-blend-mode: overlay;
+  }
+
+  /* Lighttable hover lift + glow */
+  .lighttable{ will-change: transform; }
+  .lighttable:hover{
+    transform: translateY(-4px);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.65), 0 0 0 1px rgba(15,169,104,0.15), inset 0 1px 0 rgba(255,255,255,0.06);
+    border-color: rgba(241,184,45,0.35);
+  }
+
+  /* Animated gradient border accent on controls */
+  .controls{ position: relative; overflow: hidden; }
+  .controls::before{
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--nsbm-emerald), var(--nsbm-gold), var(--nsbm-emerald));
+    background-size: 200% 100%;
+    animation: paintFlow 6s linear infinite;
+  }
+
+  /* Convert button shine sweep */
+  .convert-btn{ position: relative; overflow: hidden; }
+  .convert-btn::after{
+    content: '';
+    position: absolute;
+    top: 0; left: -75%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255,255,255,0.5), transparent);
+    transform: skewX(-20deg);
+  }
+  .convert-btn:hover:not(:disabled)::after{
+    animation: shine 1s ease forwards;
+  }
+
+  /* Frame fade-in stagger */
+  .frame{ animation: frameIn 0.45s ease-out backwards; }
+  .strip .frame:nth-child(1){ animation-delay: 0.02s; }
+  .strip .frame:nth-child(2){ animation-delay: 0.06s; }
+  .strip .frame:nth-child(3){ animation-delay: 0.10s; }
+  .strip .frame:nth-child(4){ animation-delay: 0.14s; }
+  .strip .frame:nth-child(5){ animation-delay: 0.18s; }
+  .strip .frame:nth-child(n+6){ animation-delay: 0.22s; }
+
+  /* Status pulse while working */
+  .status:not(:empty){ animation: statusPulse 1.6s ease-in-out infinite; }
+
+  /* Responsive tweaks */
+  @media (max-width: 480px){
+    .logo-number{ font-size: 3.6rem; }
+    .logo span{ font-size: 3rem; }
+    .lighttable{ padding: 40px 20px; }
+    .controls{ flex-direction: column; align-items: stretch; text-align: center; }
+  }
+
+  /* --- KEYFRAMES --- */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes paintFlow {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+  }
+
+  @keyframes textSway {
+    0% { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(-4px) rotate(-1deg); filter: drop-shadow(0 6px 20px rgba(15,169,104,0.3)); }
+  }
+
+  @keyframes glowDrift {
+    0% { transform: translate(0,0) scale(1); }
+    100% { transform: translate(2%, -2%) scale(1.08); }
+  }
+
+  @keyframes shimmer {
+    0% { background-position: 200% 0; }
+    50%, 100% { background-position: -50% 0; }
+  }
+
+  @keyframes shine {
+    100% { left: 125%; }
+  }
+
+  @keyframes frameIn {
+    from { opacity: 0; transform: translateY(10px) scale(0.96); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  @keyframes statusPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+
+  /* Cinematic Campus Greenery Panning Loop */
+  @keyframes campusPan {
+    0% {
+      transform: scale(1) translate(0, 0);
+    }
+    50% {
+      transform: scale(1.1) translate(-2%, -1%);
+    }
+    100% {
+      transform: scale(1.04) translate(1%, 2%);
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- Animated Academic Architecture Backdrop Canvas -->
+<div class="bg-animation-container">
+  <img src="https://images.unsplash.com/photo-1606761568499-6d2451b23c66?q=80&w=2000&auto=format&fit=crop" class="bg-photo" alt="Modern Campus Architecture Background">
+</div>
+
+<header>
+  <div class="logo">
+    <div class="logo-number">25.2</div>
+    <span>PDF Lovers</span>
+  </div>
+  <div class="eyebrow">Roll · Develop · Export</div>
+  <h1>Convert between <em>images</em><br>and PDF</h1>
+  <p class="sub">Combine JPEG/PNG images into a high-quality PDF, or split a PDF back into high-resolution images. Everything happens in your browser — nothing is uploaded anywhere.</p>
+</header>
+
+<main>
+
+  <div class="tabs">
+    <button class="tab active" id="tabImgToPdf">Image → PDF</button>
+    <button class="tab" id="tabPdfToImg">PDF → Image</button>
+  </div>
+
+  <!-- IMAGE TO PDF SECTION -->
+  <section id="sectionImgToPdf">
+    <div class="lighttable" id="dropzone">
+      <div class="icon">＋</div>
+      <h2>Drop images here</h2>
+      <p>JPEG or PNG files, any number, any size</p>
+      <label class="browse-btn" for="fileInput">Browse files</label>
+      <input type="file" id="fileInput" accept="image/jpeg,image/png" multiple>
+    </div>
+
+    <div class="strip" id="strip"></div>
+
+    <div class="options">
+      <div class="opt-group">
+        <label for="quality">Quality</label>
+        <select id="quality">
+          <option value="1">Maximum (lossless PNG)</option>
+          <option value="0.95" selected>High (95%)</option>
+          <option value="0.85">Good (85%)</option>
+          <option value="0.7">Standard (70%)</option>
+        </select>
+      </div>
+      <div class="opt-group">
+        <label for="pageSize">Page Size</label>
+        <select id="pageSize">
+          <option value="a4" selected>A4</option>
+          <option value="letter">Letter</option>
+          <option value="a3">A3</option>
+          <option value="fit">Fit to Image</option>
+        </select>
+      </div>
+      <div class="opt-group">
+        <label for="orientation">Orientation</label>
+        <select id="orientation">
+          <option value="auto" selected>Auto</option>
+          <option value="portrait">Portrait</option>
+          <option value="landscape">Landscape</option>
+        </select>
+      </div>
+      <div class="opt-group">
+        <label for="margin">Margin</label>
+        <select id="margin">
+          <option value="0" selected>None</option>
+          <option value="20">Small</option>
+          <option value="40">Medium</option>
+          <option value="60">Large</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="controls">
+      <div class="count" id="count">No frames loaded</div>
+      <button class="convert-btn" id="convertBtn" disabled>Export PDF</button>
+    </div>
+
+    <div class="status" id="status"></div>
+  </section>
+
+  <!-- PDF TO IMAGE SECTION -->
+  <section id="sectionPdfToImg" hidden>
+    <div class="lighttable" id="dropzonePdf">
+      <div class="icon">📄</div>
+      <h2>Drop a PDF here</h2>
+      <p>Each page will be converted into a high-resolution image</p>
+      <label class="browse-btn" for="pdfInput">Browse files</label>
+      <input type="file" id="pdfInput" accept="application/pdf">
+    </div>
+
+    <div class="strip" id="pdfStrip"></div>
+
+    <div class="options">
+      <div class="opt-group">
+        <label for="pdfFormat">Image Format</label>
+        <select id="pdfFormat">
+          <option value="png" selected>PNG (lossless)</option>
+          <option value="jpeg">JPEG</option>
+        </select>
+      </div>
+      <div class="opt-group">
+        <label for="pdfScale">Resolution</label>
+        <select id="pdfScale">
+          <option value="1">Standard (1x)</option>
+          <option value="2" selected>High (2x)</option>
+          <option value="3">Ultra (3x)</option>
+          <option value="4">Maximum (4x)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="controls">
+      <div class="count" id="pdfCount">No PDF loaded</div>
+      <button class="convert-btn" id="convertPdfBtn" disabled>Export Images (ZIP)</button>
+    </div>
+
+    <div class="status" id="pdfStatus"></div>
+  </section>
+
+</main>
+
+<footer>
+  <div>Local processing — no server, no upload</div>
+  <div class="copyright">© 2026 Made by Rusiru Wimukthi Wilson. All rights reserved.</div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script>
+  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+  /* ============ TAB SWITCHING ============ */
+  const tabImgToPdf = document.getElementById('tabImgToPdf');
+  const tabPdfToImg = document.getElementById('tabPdfToImg');
+  const sectionImgToPdf = document.getElementById('sectionImgToPdf');
+  const sectionPdfToImg = document.getElementById('sectionPdfToImg');
+
+  tabImgToPdf.addEventListener('click', () => {
+    tabImgToPdf.classList.add('active');
+    tabPdfToImg.classList.remove('active');
+    sectionImgToPdf.hidden = false;
+    sectionPdfToImg.hidden = true;
+  });
+
+  tabPdfToImg.addEventListener('click', () => {
+    tabPdfToImg.classList.add('active');
+    tabImgToPdf.classList.remove('active');
+    sectionPdfToImg.hidden = false;
+    sectionImgToPdf.hidden = true;
+  });
+
+  /* ============ IMAGE -> PDF ============ */
+  const dropzone = document.getElementById('dropzone');
+  const fileInput = document.getElementById('fileInput');
+  const strip = document.getElementById('strip');
+  const countEl = document.getElementById('count');
+  const convertBtn = document.getElementById('convertBtn');
+  const statusEl = document.getElementById('status');
+
+  const qualitySel = document.getElementById('quality');
+  const pageSizeSel = document.getElementById('pageSize');
+  const orientationSel = document.getElementById('orientation');
+  const marginSel = document.getElementById('margin');
+
+  let images = [];
+
+  ['dragenter','dragover'].forEach(evt =>
+    dropzone.addEventListener(evt, e => {
+      e.preventDefault();
+      dropzone.classList.add('drag');
+    })
+  );
+
+  ['dragleave','drop'].forEach(evt =>
+    dropzone.addEventListener(evt, e => {
+      e.preventDefault();
+      dropzone.classList.remove('drag');
+    })
+  );
+
+  dropzone.addEventListener('drop', e => {
+    handleFiles(e.dataTransfer.files);
+  });
+
+  fileInput.addEventListener('change', e => {
+    handleFiles(e.target.files);
+  });
+
+  function handleFiles(fileList){
+    const files = [...fileList].filter(f =>
+      f.type === 'image/jpeg' || f.type === 'image/jpg' || f.type === 'image/png'
+    );
+    if(files.length === 0){
+      statusEl.textContent = 'Please choose JPEG or PNG files only.';
+      return;
+    }
+    statusEl.textContent = '';
+    files.forEach(file => {
+      const reader = new FileReader();
+      reader.onload = e => {
+        images.push({ file, dataUrl: e.target.result });
+        renderStrip();
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  function renderStrip(){
+    strip.innerHTML = '';
+    images.forEach((img, i) => {
+      const frame = document.createElement('div');
+      frame.className = 'frame';
+      frame.draggable = true;
+      frame.dataset.index = i;
+      frame.innerHTML = `
+        <img src="${img.dataUrl}" alt="frame ${i+1}">
+        <span class="num">${String(i+1).padStart(2,'0')}</span>
+        <button class="remove" data-index="${i}">×</button>
+      `;
+      strip.appendChild(frame);
+    });
+
+    strip.querySelectorAll('.remove').forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.stopPropagation();
+        const idx = parseInt(e.target.dataset.index);
+        images.splice(idx, 1);
+        renderStrip();
+      });
+    });
+
+    // Drag-to-reorder
+    let dragSrcIndex = null;
+    strip.querySelectorAll('.frame').forEach(frame => {
+      frame.addEventListener('dragstart', e => {
+        dragSrcIndex = parseInt(frame.dataset.index);
+        e.dataTransfer.effectAllowed = 'move';
+      });
+      frame.addEventListener('dragover', e => e.preventDefault());
+      frame.addEventListener('drop', e => {
+        e.preventDefault();
+        const targetIndex = parseInt(frame.dataset.index);
+        if(dragSrcIndex === null || dragSrcIndex === targetIndex) return;
+        const moved = images.splice(dragSrcIndex, 1)[0];
+        images.splice(targetIndex, 0, moved);
+        renderStrip();
+      });
+    });
+
+    countEl.innerHTML = images.length
+      ? `<strong>${images.length}</strong> frame${images.length > 1 ? 's' : ''} loaded`
+      : 'No frames loaded';
+
+    convertBtn.disabled = images.length === 0;
+  }
+
+  const PAGE_SIZES = {
+    a4: [595.28, 841.89],
+    letter: [612, 792],
+    a3: [841.89, 1190.55]
+  };
+
+  convertBtn.addEventListener('click', async () => {
+    if(images.length === 0) return;
+    convertBtn.disabled = true;
+    statusEl.textContent = 'Developing… exporting high-quality PDF';
+
+    const quality = parseFloat(qualitySel.value);
+    const pageSizeKey = pageSizeSel.value;
+    const orientation = orientationSel.value;
+    const margin = parseInt(marginSel.value);
+
+    const { jsPDF } = window.jspdf;
+    let pdf = null;
+
+    for(let i = 0; i < images.length; i++){
+      const original = images[i];
+      const img = await loadImage(original.dataUrl);
+
+      // Re-encode at chosen quality for high-fidelity output
+      const { dataUrl, format } = await reencodeImage(img, original.file.type, quality);
+
+      let pageW, pageH;
+      let imgIsLandscape = img.width > img.height;
+
+      if(pageSizeKey === 'fit'){
+        // Page exactly matches image dimensions (in points, 96dpi -> pt conversion)
+        pageW = img.width * 0.75;
+        pageH = img.height * 0.75;
+      } else {
+        let [w, h] = PAGE_SIZES[pageSizeKey];
+        let useLandscape;
+        if(orientation === 'portrait') useLandscape = false;
+        else if(orientation === 'landscape') useLandscape = true;
+        else useLandscape = imgIsLandscape;
+
+        if(useLandscape){ [w, h] = [Math.max(w,h), Math.min(w,h)]; }
+        else { [w, h] = [Math.min(w,h), Math.max(w,h)]; }
+        pageW = w; pageH = h;
+      }
+
+      const orientationStr = pageW > pageH ? 'l' : 'p';
+
+      if(pdf === null){
+        pdf = new jsPDF({ unit: 'pt', format: [pageW, pageH], orientation: orientationStr, compress: true });
+      } else {
+        pdf.addPage([pageW, pageH], orientationStr);
+      }
+
+      const availW = pageW - margin * 2;
+      const availH = pageH - margin * 2;
+
+      let w = availW, h = (img.height * availW) / img.width;
+      if(h > availH){
+        h = availH;
+        w = (img.width * availH) / img.height;
+      }
+      const x = (pageW - w) / 2;
+      const y = (pageH - h) / 2;
+
+      pdf.addImage(dataUrl, format, x, y, w, h, undefined, 'NONE');
+    }
+
+    pdf.save('converted.pdf');
+    statusEl.textContent = `Exported ${images.length} frame${images.length > 1 ? 's' : ''} to converted.pdf`;
+    convertBtn.disabled = false;
+  });
+
+  function reencodeImage(img, mimeType, quality){
+    return new Promise(resolve => {
+      // Lossless path: keep PNG as-is, or quality=1 requested
+      if(quality === 1 || mimeType === 'image/png'){
+        const canvas = document.createElement('canvas');
+        canvas.width = img.naturalWidth || img.width;
+        canvas.height = img.naturalHeight || img.height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0);
+        resolve({ dataUrl: canvas.toDataURL('image/png'), format: 'PNG' });
+        return;
+      }
+      const canvas = document.createElement('canvas');
+      canvas.width = img.naturalWidth || img.width;
+      canvas.height = img.naturalHeight || img.height;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0);
+      resolve({ dataUrl: canvas.toDataURL('image/jpeg', quality), format: 'JPEG' });
+    });
+  }
+
+  function loadImage(src){
+    return new Promise(resolve => {
+      const img = new Image();
+      img.onload = () => resolve(img);
+      img.src = src;
+    });
+  }
+
+  /* ============ PDF -> IMAGE ============ */
+  const dropzonePdf = document.getElementById('dropzonePdf');
+  const pdfInput = document.getElementById('pdfInput');
+  const pdfStrip = document.getElementById('pdfStrip');
+  const pdfCountEl = document.getElementById('pdfCount');
+  const convertPdfBtn = document.getElementById('convertPdfBtn');
+  const pdfStatusEl = document.getElementById('pdfStatus');
+  const pdfFormatSel = document.getElementById('pdfFormat');
+  const pdfScaleSel = document.getElementById('pdfScale');
+
+  let loadedPdf = null;
+  let pdfFileName = 'document';
+
+  ['dragenter','dragover'].forEach(evt =>
+    dropzonePdf.addEventListener(evt, e => {
+      e.preventDefault();
+      dropzonePdf.classList.add('drag');
+    })
+  );
+
+  ['dragleave','drop'].forEach(evt =>
+    dropzonePdf.addEventListener(evt, e => {
+      e.preventDefault();
+      dropzonePdf.classList.remove('drag');
+    })
+  );
+
+  dropzonePdf.addEventListener('drop', e => handlePdfFile(e.dataTransfer.files[0]));
+  pdfInput.addEventListener('change', e => handlePdfFile(e.target.files[0]));
+
+  async function handlePdfFile(file){
+    if(!file || file.type !== 'application/pdf'){
+      pdfStatusEl.textContent = 'Please choose a PDF file.';
+      return;
+    }
+    pdfStatusEl.textContent = 'Loading PDF…';
+    pdfFileName = file.name.replace(/\.pdf$/i, '') || 'document';
+
+    const arrayBuffer = await file.arrayBuffer();
+    loadedPdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+
+    pdfCountEl.innerHTML = `<strong>${loadedPdf.numPages}</strong> page${loadedPdf.numPages > 1 ? 's' : ''} loaded`;
+    convertPdfBtn.disabled = false;
+    pdfStatusEl.textContent = '';
+
+    await renderPdfThumbnails();
+  }
+
+  async function renderPdfThumbnails(){
+    pdfStrip.innerHTML = '';
+    const maxThumbs = Math.min(loadedPdf.numPages, 12);
+    for(let p = 1; p <= maxThumbs; p++){
+      const page = await loadedPdf.getPage(p);
+      const viewport = page.getViewport({ scale: 0.4 });
+      const canvas = document.createElement('canvas');
+      canvas.width = viewport.width;
+      canvas.height = viewport.height;
+      const ctx = canvas.getContext('2d');
+      await page.render({ canvasContext: ctx, viewport }).promise;
+
+      const frame = document.createElement('div');
+      frame.className = 'frame pdf-page';
+      const img = document.createElement('img');
+      img.src = canvas.toDataURL('image/png');
+      const label = document.createElement('span');
+      label.className = 'page-label';
+      label.textContent = `Page ${p}`;
+      frame.appendChild(img);
+      frame.appendChild(label);
+      pdfStrip.appendChild(frame);
+    }
+    if(loadedPdf.numPages > maxThumbs){
+      const more = document.createElement('div');
+      more.className = 'frame pdf-page';
+      more.style.display = 'flex';
+      more.style.alignItems = 'center';
+      more.style.justifyContent = 'center';
+      more.style.color = 'var(--muted)';
+      more.style.fontFamily = "'JetBrains Mono', monospace";
+      more.style.fontSize = '12px';
+      more.textContent = `+${loadedPdf.numPages - maxThumbs} more`;
+      pdfStrip.appendChild(more);
+    }
+  }
+
+  convertPdfBtn.addEventListener('click', async () => {
+    if(!loadedPdf) return;
+    convertPdfBtn.disabled = true;
+
+    const format = pdfFormatSel.value;
+    const scale = parseFloat(pdfScaleSel.value);
+    const ext = format === 'png' ? 'png' : 'jpg';
+
+    const zip = new JSZip();
+
+    for(let p = 1; p <= loadedPdf.numPages; p++){
+      pdfStatusEl.textContent = `Rendering page ${p} of ${loadedPdf.numPages}…`;
+      const page = await loadedPdf.getPage(p);
+      const viewport = page.getViewport({ scale });
+      const canvas = document.createElement('canvas');
+      canvas.width = viewport.width;
+      canvas.height = viewport.height;
+      const ctx = canvas.getContext('2d');
+
+      if(format === 'jpeg'){
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+      }
+
+      await page.render({ canvasContext: ctx, viewport }).promise;
+
+      const mime = format === 'png' ? 'image/png' : 'image/jpeg';
+      const quality = format === 'png' ? undefined : 0.95;
+      const blob = await new Promise(res => canvas.toBlob(res, mime, quality));
+
+      const pageNum = String(p).padStart(loadedPdf.numPages >= 100 ? 3 : 2, '0');
+      zip.file(`${pdfFileName}_page_${pageNum}.${ext}`, blob);
+    }
+
+    pdfStatusEl.textContent = 'Packing ZIP…';
+    const zipBlob = await zip.generateAsync({ type: 'blob' });
+
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(zipBlob);
+    a.download = `${pdfFileName}_images.zip`;
+    a.click();
+    URL.revokeObjectURL(a.href);
+
+    pdfStatusEl.textContent = `Exported ${loadedPdf.numPages} page${loadedPdf.numPages > 1 ? 's' : ''} as ${format.toUpperCase()} (ZIP)`;
+    convertPdfBtn.disabled = false;
+  });
+</script>
+
+</body>
+</html>
