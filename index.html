@@ -18,6 +18,7 @@
     --line: rgba(255, 255, 255, 0.08);
     --muted: #a2b5ac;
     --glass: rgba(7, 20, 14, 0.82);
+    --error: #ff4154;
   }
 
   *{ margin:0; padding:0; box-sizing:border-box; }
@@ -51,7 +52,6 @@
     content: '';
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
-    /* Rich deep emerald gradient overlay to secure crisp content readability */
     background: linear-gradient(135deg, rgba(7, 20, 14, 0.82) 0%, rgba(4, 10, 7, 0.96) 100%);
     z-index: 1;
   }
@@ -64,7 +64,6 @@
     height: 110%;
     object-fit: cover;
     filter: saturate(1.1) contrast(1.05);
-    /* Soft panoramic zoom to mimic campus morning atmosphere */
     animation: campusPan 22s ease-in-out infinite alternate;
   }
 
@@ -88,7 +87,6 @@
     font-weight: 500;
   }
 
-  /* Logo Section */
   .logo{
     margin-bottom: 28px;
     display: flex;
@@ -99,7 +97,6 @@
     flex-wrap: wrap;
   }
 
-  /* 25.2 - Bold, Solid, Academic Prestige Font */
   .logo-number {
     font-family: 'Syne', sans-serif;
     font-weight: 800;
@@ -110,7 +107,6 @@
     text-shadow: 0 8px 30px rgba(0, 0, 0, 0.5), 0 0 40px rgba(15, 169, 104, 0.2);
   }
 
-  /* PDF Lovers - Animated Brush Fluid Text */
   .logo span{
     font-family: 'Caveat', cursive;
     font-size: 4.8rem;
@@ -158,7 +154,7 @@
     z-index: 2;
   }
 
-  /* Modern Campus Architecture Glass Deck */
+  /* --- MODERN GLASS DECK --- */
   .lighttable{
     border: 2px dashed rgba(15, 169, 104, 0.3);
     border-radius: 16px;
@@ -171,11 +167,13 @@
     box-shadow: 0 24px 50px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255,255,255,0.05);
   }
 
+  /* Added custom pulse keyframes when dragging content over dropzone */
   .lighttable.drag{
     border-color: var(--nsbm-emerald);
     background: rgba(10, 36, 24, 0.9);
-    transform: scale(1.02);
+    transform: scale(1.01);
     box-shadow: 0 30px 60px rgba(15, 169, 104, 0.25);
+    animation: pulseBorder 1.5s infinite ease-in-out;
   }
 
   .lighttable .icon{
@@ -214,6 +212,7 @@
     margin-bottom: 28px;
   }
 
+  /* Button Micro-interactions (Tactile Active States) */
   .browse-btn{
     display: inline-block;
     padding: 12px 32px;
@@ -227,7 +226,8 @@
     text-transform: uppercase;
     cursor: pointer;
     background: transparent;
-    transition: all 0.2s ease;
+    transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+    user-select: none;
   }
 
   .browse-btn:hover{
@@ -235,6 +235,11 @@
     color: var(--nsbm-dark);
     box-shadow: 0 0 24px rgba(241, 184, 45, 0.3);
     transform: translateY(-1px);
+  }
+
+  .browse-btn:active {
+    transform: scale(0.96) translateY(0);
+    opacity: 0.9;
   }
 
   input[type="file"]{ display:none; }
@@ -254,7 +259,8 @@
     overflow: hidden;
     aspect-ratio: 1;
     box-shadow: 0 8px 16px rgba(0,0,0,0.4);
-    transition: transform 0.2s;
+    transition: transform 0.2s, opacity 0.3s;
+    animation: frameIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) backwards;
   }
 
   .frame:hover{
@@ -295,16 +301,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background 0.2s, transform 0.1s;
+    transition: background 0.2s, transform 0.1s, opacity 0.2s;
     opacity: 0;
   }
 
-  .frame:hover .remove{
-    opacity: 1;
-  }
-
+  .frame:hover .remove{ opacity: 1; }
   .frame .remove:hover{ 
-    background: rgba(255, 65, 84, 1);
+    background: var(--error);
     transform: scale(1.1);
   }
 
@@ -339,14 +342,20 @@
     font-size: 1.1rem;
     border-radius: 8px;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
     box-shadow: 0 4px 15px rgba(241, 184, 45, 0.25);
+    user-select: none;
   }
 
   .convert-btn:hover:not(:disabled){
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(241, 184, 45, 0.45);
     background: linear-gradient(135deg, var(--nsbm-gold-hover) 0%, var(--nsbm-gold) 100%);
+  }
+
+  .convert-btn:active:not(:disabled){
+    transform: scale(0.97) translateY(0);
+    opacity: 0.95;
   }
 
   .convert-btn:disabled{
@@ -356,13 +365,56 @@
     cursor: not-allowed;
   }
 
+  /* --- MODERN PROCESSING AND STATUS DESIGNS --- */
+  .status-wrapper {
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+  }
+
   .status{
-    margin-top: 20px;
     font-family: 'JetBrains Mono', monospace;
     font-size: 13px;
     color: var(--nsbm-gold);
     text-align: center;
     min-height: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+  }
+
+  /* Smooth Loading Spinner Mechanics */
+  .spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(241, 184, 45, 0.2);
+    border-top-color: var(--nsbm-gold);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    display: inline-block;
+  }
+
+  /* Adaptive Smooth Tracking Progress Bar Component */
+  .progress-container {
+    width: 100%;
+    max-width: 400px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    overflow: hidden;
+    display: none;
+    border: 1px solid rgba(255,255,255,0.02);
+  }
+
+  .progress-bar {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, var(--nsbm-emerald), var(--nsbm-gold));
+    transition: width 0.25s ease-out;
   }
 
   footer{
@@ -387,7 +439,7 @@
     letter-spacing: 0.05em;
   }
 
-  /* --- TABS --- */
+  /* --- TABS SYSTEM --- */
   .tabs{
     display: flex;
     gap: 12px;
@@ -407,13 +459,18 @@
     letter-spacing: 0.08em;
     text-transform: uppercase;
     cursor: pointer;
-    transition: all 0.25s ease;
+    transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
     backdrop-filter: blur(10px);
+    user-select: none;
   }
 
   .tab:hover{
     color: var(--paper);
     border-color: rgba(15,169,104,0.4);
+  }
+
+  .tab:active {
+    transform: scale(0.96);
   }
 
   .tab.active{
@@ -424,7 +481,20 @@
     font-weight: 700;
   }
 
-  /* --- OPTIONS PANEL --- */
+  /* --- SECTIONS INTERACTION ARCHITECTURE --- */
+  .app-section {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .app-section[hidden] {
+    display: none !important;
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  /* --- OPTIONS PANEL (Dynamic Reveal Flow) --- */
   .options{
     margin-top: 24px;
     display: grid;
@@ -435,6 +505,16 @@
     border-radius: 12px;
     padding: 20px 24px;
     backdrop-filter: blur(16px);
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+  }
+
+  .options.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: all;
   }
 
   .opt-group{
@@ -479,7 +559,6 @@
     color: var(--paper);
   }
 
-  /* --- PDF PAGE THUMBNAILS --- */
   .frame.pdf-page img{ object-fit: contain; background: #fff; }
 
   .frame .page-label{
@@ -495,7 +574,82 @@
     backdrop-filter: blur(4px);
   }
 
-  /* --- ADVANCED ENHANCEMENTS --- */
+  /* --- PREVIEW LIGHTBOX SLICK SYSTEM --- */
+  .lightbox {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(4, 10, 7, 0.95);
+    backdrop-filter: blur(12px);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  .lightbox.active {
+    opacity: 1;
+    pointer-events: all;
+  }
+  .lightbox img {
+    max-width: 90%;
+    max-height: 80%;
+    border-radius: 8px;
+    box-shadow: 0 30px 70px rgba(0,0,0,0.8);
+    transform: scale(0.95);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .lightbox.active img {
+    transform: scale(1);
+  }
+  .lightbox-close {
+    position: absolute;
+    top: 24px; right: 24px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: white;
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+  }
+  .lightbox-close:hover {
+    background: rgba(255,255,255,0.15);
+    transform: scale(1.05);
+  }
+
+  /* --- APP TOAST APP-LEVEL SNACKBAR --- */
+  .toast-container {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(40px);
+    background: #0f2b1d;
+    border: 1px solid var(--nsbm-emerald);
+    color: var(--paper);
+    padding: 14px 28px;
+    border-radius: 50px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 500;
+    box-shadow: 0 16px 40px rgba(0,0,0,0.6), 0 0 30px rgba(15, 169, 104, 0.2);
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .toast-container.active {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
 
   ::selection{
     background: var(--nsbm-gold);
@@ -514,7 +668,6 @@
     border-radius: 6px;
   }
 
-  /* Subtle floating glow layer for extra depth */
   .bg-animation-container::before{
     content: '';
     position: absolute;
@@ -527,7 +680,6 @@
     animation: glowDrift 18s ease-in-out infinite alternate;
   }
 
-  /* Glassy shimmer sweep on logo */
   .logo-number{
     position: relative;
     display: inline-block;
@@ -545,7 +697,6 @@
     mix-blend-mode: overlay;
   }
 
-  /* Lighttable hover lift + glow */
   .lighttable{ will-change: transform; }
   .lighttable:hover{
     transform: translateY(-4px);
@@ -553,7 +704,6 @@
     border-color: rgba(241,184,45,0.35);
   }
 
-  /* Animated gradient border accent on controls */
   .controls{ position: relative; overflow: hidden; }
   .controls::before{
     content: '';
@@ -565,7 +715,6 @@
     animation: paintFlow 6s linear infinite;
   }
 
-  /* Convert button shine sweep */
   .convert-btn{ position: relative; overflow: hidden; }
   .convert-btn::after{
     content: '';
@@ -580,8 +729,7 @@
     animation: shine 1s ease forwards;
   }
 
-  /* Frame fade-in stagger */
-  .frame{ animation: frameIn 0.45s ease-out backwards; }
+  /* Staggered load delays */
   .strip .frame:nth-child(1){ animation-delay: 0.02s; }
   .strip .frame:nth-child(2){ animation-delay: 0.06s; }
   .strip .frame:nth-child(3){ animation-delay: 0.10s; }
@@ -589,10 +737,6 @@
   .strip .frame:nth-child(5){ animation-delay: 0.18s; }
   .strip .frame:nth-child(n+6){ animation-delay: 0.22s; }
 
-  /* Status pulse while working */
-  .status:not(:empty){ animation: statusPulse 1.6s ease-in-out infinite; }
-
-  /* Responsive tweaks */
   @media (max-width: 480px){
     .logo-number{ font-size: 3.6rem; }
     .logo span{ font-size: 3rem; }
@@ -605,58 +749,41 @@
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
   }
-
   @keyframes paintFlow {
     0% { background-position: 0% 50%; }
     100% { background-position: 200% 50%; }
   }
-
   @keyframes textSway {
     0% { transform: translateY(0) rotate(0deg); }
     100% { transform: translateY(-4px) rotate(-1deg); filter: drop-shadow(0 6px 20px rgba(15,169,104,0.3)); }
   }
-
   @keyframes glowDrift {
     0% { transform: translate(0,0) scale(1); }
     100% { transform: translate(2%, -2%) scale(1.08); }
   }
-
   @keyframes shimmer {
     0% { background-position: 200% 0; }
     50%, 100% { background-position: -50% 0; }
   }
-
-  @keyframes shine {
-    100% { left: 125%; }
+  @keyframes shine { 100% { left: 125%; } }
+  @keyframes spin { 100% { transform: rotate(360deg); } }
+  @keyframes pulseBorder {
+    0%, 100% { border-color: rgba(15, 169, 104, 0.3); }
+    50% { border-color: var(--nsbm-emerald); box-shadow: 0 0 20px rgba(15, 169, 104, 0.2); }
   }
-
   @keyframes frameIn {
-    from { opacity: 0; transform: translateY(10px) scale(0.96); }
-    to { opacity: 1; transform: translateY(0) scale(1); }
+    from { opacity: 0; transform: scale(0.9) translateY(10px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
   }
-
-  @keyframes statusPulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.5; }
-  }
-
-  /* Cinematic Campus Greenery Panning Loop */
   @keyframes campusPan {
-    0% {
-      transform: scale(1) translate(0, 0);
-    }
-    50% {
-      transform: scale(1.1) translate(-2%, -1%);
-    }
-    100% {
-      transform: scale(1.04) translate(1%, 2%);
-    }
+    0% { transform: scale(1) translate(0, 0); }
+    50% { transform: scale(1.1) translate(-2%, -1%); }
+    100% { transform: scale(1.04) translate(1%, 2%); }
   }
 </style>
 </head>
 <body>
 
-<!-- Animated Academic Architecture Backdrop Canvas -->
 <div class="bg-animation-container">
   <img src="https://images.unsplash.com/photo-1606761568499-6d2451b23c66?q=80&w=2000&auto=format&fit=crop" class="bg-photo" alt="Modern Campus Architecture Background">
 </div>
@@ -678,8 +805,7 @@
     <button class="tab" id="tabPdfToImg">PDF → Image</button>
   </div>
 
-  <!-- IMAGE TO PDF SECTION -->
-  <section id="sectionImgToPdf">
+  <section id="sectionImgToPdf" class="app-section">
     <div class="lighttable" id="dropzone">
       <div class="icon">＋</div>
       <h2>Drop images here</h2>
@@ -690,7 +816,7 @@
 
     <div class="strip" id="strip"></div>
 
-    <div class="options">
+    <div class="options" id="optionsImgToPdf">
       <div class="opt-group">
         <label for="quality">Quality</label>
         <select id="quality">
@@ -733,11 +859,13 @@
       <button class="convert-btn" id="convertBtn" disabled>Export PDF</button>
     </div>
 
-    <div class="status" id="status"></div>
+    <div class="status-wrapper">
+      <div class="status" id="status"></div>
+      <div class="progress-container" id="progressContainer"><div class="progress-bar" id="progressBar"></div></div>
+    </div>
   </section>
 
-  <!-- PDF TO IMAGE SECTION -->
-  <section id="sectionPdfToImg" hidden>
+  <section id="sectionPdfToImg" class="app-section" hidden>
     <div class="lighttable" id="dropzonePdf">
       <div class="icon">📄</div>
       <h2>Drop a PDF here</h2>
@@ -748,7 +876,7 @@
 
     <div class="strip" id="pdfStrip"></div>
 
-    <div class="options">
+    <div class="options" id="optionsPdfToImg">
       <div class="opt-group">
         <label for="pdfFormat">Image Format</label>
         <select id="pdfFormat">
@@ -772,7 +900,10 @@
       <button class="convert-btn" id="convertPdfBtn" disabled>Export Images (ZIP)</button>
     </div>
 
-    <div class="status" id="pdfStatus"></div>
+    <div class="status-wrapper">
+      <div class="status" id="pdfStatus"></div>
+      <div class="progress-container" id="pdfProgressContainer"><div class="progress-bar" id="pdfProgressBar"></div></div>
+    </div>
   </section>
 
 </main>
@@ -781,19 +912,43 @@
   <div class="copyright">© 2026 Made by Rusiru Wimukthi Wilson. All rights reserved.</div>
 </footer>
 
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightboxClose">×</button>
+  <img src="" id="lightboxImg" alt="High Resolution Preview">
+</div>
+
+<div class="toast-container" id="toast"></div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <script src="https://unpkg.com/@capacitor/core@6/dist/capacitor.js"></script>
 <script src="https://unpkg.com/@capacitor/filesystem@6/dist/plugin.js"></script>
 <script src="https://unpkg.com/@capacitor/share@6/dist/plugin.js"></script>
+<script src="https://unpkg.com/@capacitor/haptics@6/dist/plugin.js"></script>
 <script>
   pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
-  /* ============ APP SAVE HELPER ============ */
-  // Detects if running inside the Capacitor Android app and saves the
-  // file to device storage + opens the share/save sheet. Falls back to
-  // a normal browser download when running on the website.
+  /* ============ GLOBAL NATIVE UX UTILITIES ============ */
+  // Haptic feedback trigger for native platform shells
+  async function triggerHaptic() {
+    if (window.Capacitor && window.Capacitor.isPluginAvailable('Haptics')) {
+      try {
+        await window.Capacitor.Plugins.Haptics.impact({ style: 'LIGHT' });
+      } catch (e) { console.log('Haptics invocation skipped'); }
+    }
+  }
+
+  // Beautiful modern native sliding toast component tracker
+  function showToast(message) {
+    const toast = document.getElementById('toast');
+    toast.innerHTML = `<span>✨</span> ${message}`;
+    toast.classList.add('active');
+    setTimeout(() => {
+      toast.classList.remove('active');
+    }, 4000);
+  }
+
   async function saveOrDownloadBlob(blob, fileName, mimeType){
     const isApp = window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform();
 
@@ -828,7 +983,6 @@
       }
     }
 
-    // Browser fallback (normal download)
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
     a.download = fileName;
@@ -837,33 +991,57 @@
     return { saved: true, fallback: true };
   }
 
-  /* ============ TAB SWITCHING ============ */
+  /* ============ SMOOTH SECTION TRANSITIONS ============ */
   const tabImgToPdf = document.getElementById('tabImgToPdf');
   const tabPdfToImg = document.getElementById('tabPdfToImg');
   const sectionImgToPdf = document.getElementById('sectionImgToPdf');
   const sectionPdfToImg = document.getElementById('sectionPdfToImg');
 
-  tabImgToPdf.addEventListener('click', () => {
-    tabImgToPdf.classList.add('active');
-    tabPdfToImg.classList.remove('active');
-    sectionImgToPdf.hidden = false;
-    sectionPdfToImg.hidden = true;
-  });
+  function switchTab(showSection, hideSection, activeTab, inactiveTab) {
+    triggerHaptic();
+    inactiveTab.classList.remove('active');
+    activeTab.classList.add('active');
+    
+    hideSection.style.opacity = '0';
+    hideSection.style.transform = 'translateY(8px)';
+    
+    setTimeout(() => {
+      hideSection.hidden = true;
+      showSection.hidden = false;
+      // Force repaint
+      showSection.offsetHeight;
+      showSection.style.opacity = '1';
+      showSection.style.transform = 'translateY(0)';
+    }, 200);
+  }
 
-  tabPdfToImg.addEventListener('click', () => {
-    tabPdfToImg.classList.add('active');
-    tabImgToPdf.classList.remove('active');
-    sectionPdfToImg.hidden = false;
-    sectionImgToPdf.hidden = true;
-  });
+  tabImgToPdf.addEventListener('click', () => switchTab(sectionImgToPdf, sectionPdfToImg, tabImgToPdf, tabPdfToImg));
+  tabPdfToImg.addEventListener('click', () => switchTab(sectionPdfToImg, sectionImgToPdf, tabPdfToImg, tabImgToPdf));
 
-  /* ============ IMAGE -> PDF ============ */
+  /* ============ FLUID IMAGE PREVIEW LIGHTBOX ============ */
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightboxImg');
+  const lightboxClose = document.getElementById('lightboxClose');
+
+  function openLightbox(src) {
+    triggerHaptic();
+    lightboxImg.src = src;
+    lightbox.classList.add('active');
+  }
+  lightboxClose.addEventListener('click', () => lightbox.classList.remove('active'));
+  lightbox.addEventListener('click', (e) => { if(e.target === lightbox) lightbox.classList.remove('active'); });
+
+
+  /* ============ IMAGE -> PDF ARCHITECTURE ============ */
   const dropzone = document.getElementById('dropzone');
   const fileInput = document.getElementById('fileInput');
   const strip = document.getElementById('strip');
   const countEl = document.getElementById('count');
   const convertBtn = document.getElementById('convertBtn');
   const statusEl = document.getElementById('status');
+  const progressContainer = document.getElementById('progressContainer');
+  const progressBar = document.getElementById('progressBar');
+  const optionsImgToPdf = document.getElementById('optionsImgToPdf');
 
   const qualitySel = document.getElementById('quality');
   const pageSizeSel = document.getElementById('pageSize');
@@ -886,15 +1064,11 @@
     })
   );
 
-  dropzone.addEventListener('drop', e => {
-    handleFiles(e.dataTransfer.files);
-  });
-
-  fileInput.addEventListener('change', e => {
-    handleFiles(e.target.files);
-  });
+  dropzone.addEventListener('drop', e => { handleFiles(e.dataTransfer.files); });
+  fileInput.addEventListener('change', e => { handleFiles(e.target.files); });
 
   function handleFiles(fileList){
+    triggerHaptic();
     const files = [...fileList].filter(f =>
       f.type === 'image/jpeg' || f.type === 'image/jpg' || f.type === 'image/png'
     );
@@ -913,7 +1087,11 @@
     });
   }
 
+  // FLIP Animation Engine implementation for beautiful reorder rendering
   function renderStrip(){
+    const frames = strip.querySelectorAll('.frame');
+    const firstPositions = Array.from(frames).map(f => f.getBoundingClientRect());
+
     strip.innerHTML = '';
     images.forEach((img, i) => {
       const frame = document.createElement('div');
@@ -925,19 +1103,32 @@
         <span class="num">${String(i+1).padStart(2,'0')}</span>
         <button class="remove" data-index="${i}">×</button>
       `;
+      
+      // Wire up Lightbox preview triggers smoothly
+      frame.addEventListener('click', (e) => {
+        if(!e.target.classList.contains('remove')) openLightbox(img.dataUrl);
+      });
+      
       strip.appendChild(frame);
     });
+
+    // Control options visual panel reveal rule
+    if (images.length > 0) {
+      optionsImgToPdf.classList.add('visible');
+    } else {
+      optionsImgToPdf.classList.remove('visible');
+    }
 
     strip.querySelectorAll('.remove').forEach(btn => {
       btn.addEventListener('click', e => {
         e.stopPropagation();
+        triggerHaptic();
         const idx = parseInt(e.target.dataset.index);
         images.splice(idx, 1);
         renderStrip();
       });
     });
 
-    // Drag-to-reorder
     let dragSrcIndex = null;
     strip.querySelectorAll('.frame').forEach(frame => {
       frame.addEventListener('dragstart', e => {
@@ -955,11 +1146,24 @@
       });
     });
 
-    countEl.innerHTML = images.length
-      ? `<strong>${images.length}</strong> frame${images.length > 1 ? 's' : ''} loaded`
-      : 'No frames loaded';
-
+    // Count numbers animation logic
+    animateCount(countEl, images.length, 'frame');
     convertBtn.disabled = images.length === 0;
+  }
+
+  function animateCount(element, targetCount, label) {
+    let current = 0;
+    if (targetCount === 0) {
+      element.innerHTML = `No ${label}s loaded`;
+      return;
+    }
+    const duration = 400; 
+    const stepTime = Math.max(Math.floor(duration / targetCount), 15);
+    const timer = setInterval(() => {
+      current++;
+      element.innerHTML = `<strong>${current}</strong> ${label}${current > 1 ? 's' : ''} loaded`;
+      if (current >= targetCount) clearInterval(timer);
+    }, stepTime);
   }
 
   const PAGE_SIZES = {
@@ -970,8 +1174,13 @@
 
   convertBtn.addEventListener('click', async () => {
     if(images.length === 0) return;
+    triggerHaptic();
     convertBtn.disabled = true;
-    statusEl.textContent = 'Developing… exporting high-quality PDF';
+    
+    // Reveal dynamic progress systems
+    progressContainer.style.display = 'block';
+    progressBar.style.width = '0%';
+    statusEl.innerHTML = `<span class="spinner"></span> Developing & compiling high-quality PDF…`;
 
     const quality = parseFloat(qualitySel.value);
     const pageSizeKey = pageSizeSel.value;
@@ -984,15 +1193,12 @@
     for(let i = 0; i < images.length; i++){
       const original = images[i];
       const img = await loadImage(original.dataUrl);
-
-      // Re-encode at chosen quality for high-fidelity output
       const { dataUrl, format } = await reencodeImage(img, original.file.type, quality);
 
       let pageW, pageH;
       let imgIsLandscape = img.width > img.height;
 
       if(pageSizeKey === 'fit'){
-        // Page exactly matches image dimensions (in points, 96dpi -> pt conversion)
         pageW = img.width * 0.75;
         pageH = img.height * 0.75;
       } else {
@@ -1027,17 +1233,24 @@
       const y = (pageH - h) / 2;
 
       pdf.addImage(dataUrl, format, x, y, w, h, undefined, 'NONE');
+      
+      // Advance tracking bar width linearly
+      let percentage = Math.round(((i + 1) / images.length) * 100);
+      progressBar.style.width = `${percentage}%`;
     }
 
     const pdfBlob = pdf.output('blob');
     await saveOrDownloadBlob(pdfBlob, 'converted.pdf', 'application/pdf');
+    
+    // UI clean ups and alerts
     statusEl.textContent = `Exported ${images.length} frame${images.length > 1 ? 's' : ''} to converted.pdf`;
+    showToast("✅ Saved converted.pdf successfully!");
+    progressContainer.style.display = 'none';
     convertBtn.disabled = false;
   });
 
   function reencodeImage(img, mimeType, quality){
     return new Promise(resolve => {
-      // Lossless path: keep PNG as-is, or quality=1 requested
       if(quality === 1 || mimeType === 'image/png'){
         const canvas = document.createElement('canvas');
         canvas.width = img.naturalWidth || img.width;
@@ -1064,7 +1277,7 @@
     });
   }
 
-  /* ============ PDF -> IMAGE ============ */
+  /* ============ PDF -> IMAGE ARCHITECTURE ============ */
   const dropzonePdf = document.getElementById('dropzonePdf');
   const pdfInput = document.getElementById('pdfInput');
   const pdfStrip = document.getElementById('pdfStrip');
@@ -1073,6 +1286,9 @@
   const pdfStatusEl = document.getElementById('pdfStatus');
   const pdfFormatSel = document.getElementById('pdfFormat');
   const pdfScaleSel = document.getElementById('pdfScale');
+  const pdfProgressContainer = document.getElementById('pdfProgressContainer');
+  const pdfProgressBar = document.getElementById('pdfProgressBar');
+  const optionsPdfToImg = document.getElementById('optionsPdfToImg');
 
   let loadedPdf = null;
   let pdfFileName = 'document';
@@ -1099,13 +1315,15 @@
       pdfStatusEl.textContent = 'Please choose a PDF file.';
       return;
     }
-    pdfStatusEl.textContent = 'Loading PDF…';
+    triggerHaptic();
+    pdfStatusEl.innerHTML = `<span class="spinner"></span> Loading document structures…`;
     pdfFileName = file.name.replace(/\.pdf$/i, '') || 'document';
 
     const arrayBuffer = await file.arrayBuffer();
     loadedPdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
 
-    pdfCountEl.innerHTML = `<strong>${loadedPdf.numPages}</strong> page${loadedPdf.numPages > 1 ? 's' : ''} loaded`;
+    animateCount(pdfCountEl, loadedPdf.numPages, 'page');
+    optionsPdfToImg.classList.add('visible');
     convertPdfBtn.disabled = false;
     pdfStatusEl.textContent = '';
 
@@ -1127,7 +1345,11 @@
       const frame = document.createElement('div');
       frame.className = 'frame pdf-page';
       const img = document.createElement('img');
-      img.src = canvas.toDataURL('image/png');
+      const imgUrl = canvas.toDataURL('image/png');
+      img.src = imgUrl;
+      
+      frame.addEventListener('click', () => openLightbox(imgUrl));
+
       const label = document.createElement('span');
       label.className = 'page-label';
       label.textContent = `Page ${p}`;
@@ -1151,7 +1373,10 @@
 
   convertPdfBtn.addEventListener('click', async () => {
     if(!loadedPdf) return;
+    triggerHaptic();
     convertPdfBtn.disabled = true;
+    pdfProgressContainer.style.display = 'block';
+    pdfProgressBar.style.width = '0%';
 
     const format = pdfFormatSel.value;
     const scale = parseFloat(pdfScaleSel.value);
@@ -1160,7 +1385,7 @@
     const zip = new JSZip();
 
     for(let p = 1; p <= loadedPdf.numPages; p++){
-      pdfStatusEl.textContent = `Rendering page ${p} of ${loadedPdf.numPages}…`;
+      pdfStatusEl.innerHTML = `<span class="spinner"></span> Processing page ${p} of ${loadedPdf.numPages}…`;
       const page = await loadedPdf.getPage(p);
       const viewport = page.getViewport({ scale });
       const canvas = document.createElement('canvas');
@@ -1181,14 +1406,19 @@
 
       const pageNum = String(p).padStart(loadedPdf.numPages >= 100 ? 3 : 2, '0');
       zip.file(`${pdfFileName}_page_${pageNum}.${ext}`, blob);
+      
+      let percentage = Math.round((p / loadedPdf.numPages) * 100);
+      pdfProgressBar.style.width = `${percentage}%`;
     }
 
-    pdfStatusEl.textContent = 'Packing ZIP…';
+    pdfStatusEl.innerHTML = `<span class="spinner"></span> Archiving image zip bundle…`;
     const zipBlob = await zip.generateAsync({ type: 'blob' });
 
     await saveOrDownloadBlob(zipBlob, `${pdfFileName}_images.zip`, 'application/zip');
 
     pdfStatusEl.textContent = `Exported ${loadedPdf.numPages} page${loadedPdf.numPages > 1 ? 's' : ''} as ${format.toUpperCase()} (ZIP)`;
+    showToast(`✅ Saved ${pdfFileName}_images.zip!`);
+    pdfProgressContainer.style.display = 'none';
     convertPdfBtn.disabled = false;
   });
 </script>
